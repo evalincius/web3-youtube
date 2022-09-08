@@ -32,3 +32,31 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+
+
+## Notes
+
+### Deploy local Graph Node
+
+	- Download and install Docker 
+	- Clone graph-node
+	    - `git clone https://github.com/graphprotocol/graph-node/`
+	- Cd to `graph-node/docker`
+	- Edit `docker-compose.yml` to point to local ethereum node <see port>
+	    - `Services.graph-node.environment.ethereum: 'mainnet:http://host.docker.internal:7545'`
+	- Run docker compose
+	    - `docker-compose up`
+	
+### Deploy Subgraph to local node
+
+	- Create subgraph
+        - `graph init`
+	- Edit `indexer/subgraph.yaml`. Add following
+	    - `dataSources.source.startBlock: 0`
+	- Cd to subgraph directory <indexer>
+	- Run
+	    - `npm run codegen`
+	    - `npm run build`
+	    - `npm run create-local`
+        - `npm run deploy-local`
